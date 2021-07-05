@@ -6,7 +6,7 @@
 
 #define MAX_ELEM_RECIBIDOS 1000
 
-main()
+int main()
 {
     int i, sockfd, socket_aceptado, num;
     struct sockaddr_in my_addr;

@@ -12,6 +12,7 @@ int main()
     struct sockaddr_in my_addr;
     struct sockaddr_in remote_addr;
     int addrlen;
+    char consulta[100];
     int *arr_recibido, num_bytes_recibidos, num_enteros_recibidos;
     arr_recibido = (int *)malloc(sizeof(int)*MAX_ELEM_RECIBIDOS);
 

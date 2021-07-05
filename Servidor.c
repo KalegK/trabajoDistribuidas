@@ -10,7 +10,7 @@ int ID=0;
 
 int main()
 {
-    if(ID==0){
+
         int i, sockfd, socket_aceptado;
         struct sockaddr_in my_addr;
         struct sockaddr_in remote_addr;
@@ -58,16 +58,13 @@ int main()
         num_enteros_recibidos = num_bytes_recibidos/sizeof(int);
         for (i=0; i < num_enteros_recibidos; i++)
         {
-            printf("%d ", arr_recibido[i]);
+            printf("%d", arr_recibido[i]);
         }
         printf("\n\n");
     }
 
     close(sockfd);
-    }else{
-        printf("No se  ha podido ejecutar el servidor");
-    }
-
+  
     
 
     return 0;

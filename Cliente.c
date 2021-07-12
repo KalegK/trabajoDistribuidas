@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <string.h>
 
 #define MAX_ELEM_RECIBIDOS 1000
+#define SEND_TAG 2
 
 int main()
 {
@@ -12,31 +14,43 @@ int main()
     struct sockaddr_in my_addr;
     struct sockaddr_in remote_addr;
     int addrlen;
-    char consulta[100];
-    int *arr_recibido, num_bytes_recibidos, num_enteros_recibidos;
-    arr_recibido = (int *)malloc(sizeof(int)*MAX_ELEM_RECIBIDOS);
+    char send_message[1000]="mensaje";
+    char message[100];
+
+
 
     // Creacion del socket.
     sockfd = socket (AF_INET, SOCK_STREAM, 0); 
 
     my_addr.sin_family = AF_INET; //Protocolo TCP
     my_addr.sin_port = htons(3000); //Puerto
-    my_addr.sin_addr.s_addr = inet_addr ("127.0.0.2"); // IP por donde recibira paquetes el programa
+    my_addr.sin_addr.s_addr = inet_addr ("127.0.0.3"); // IP por donde recibira paquetes el programa
 
-    //int connect ( int sockfd, struct sockaddr *serv_addr, int addrlen )
+
     connect (sockfd, (struct sockaddr *) &my_addr, sizeof(struct sockaddr));
+    printf("[+]Cliente conectado\n");
 
-    while(1)
-    {
-        scanf("%d", &num);
+    while(1){ 
+            gets(send_message);     
+            if(!strstr(send_message,"terminar")){
+                write(sockfd,send_message,strlen(send_message)+1);
+                printf("busqueda para -->  ");
+                for(int i=0; i<2 ; i++){
+                    read(sockfd,message,100);
+                    printf("%s \n\n",message);
+                }
+                
+       
+            }
+        }
 
-        send(sockfd, &num, sizeof(int), 0);
-
-        if (num == -1)
-            break;
-    }
+   
 
     close(sockfd);
+
+
+    
+    
 
     return 0;
 }
